@@ -60,6 +60,18 @@ public:
             eleves.erase(it, eleves.end());
         }
     }
+    double calculmoyenne(){
+        if (eleves.empty()){
+             throw std::invalid_argument("ya aucun eleves ");
+        }else{
+            double somme {0};
+            for (auto const & e : eleves){
+                somme+= e.getnote();
+                return somme / eleves.size() ;
+            }
+        }
+    }
+
 
     void affichereleves()
     {
@@ -74,5 +86,6 @@ int main (){
     groupe.ajouteretudiant(etudiant("rayene",15));
     groupe.ajouteretudiant(etudiant("nassim",16));
     groupe.affichereleves();
+    std::cout<<groupe.calculmoyenne()<<"\n";
     return 0 ;
 }
