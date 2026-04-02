@@ -33,8 +33,8 @@ public:
         else
             note = n;
     }
-    std::string geteleve() { return eleve; }
-    double getnote() { return note; }
+    std::string  geteleve() const { return eleve; }
+    double getnote() const { return note; }
 
     friend void afficher(const etudiant &e1, const etudiant &e2);
 };
@@ -50,17 +50,29 @@ public:
     }
     void suprimeretudiant(const std::string &nom)
     {
-        auto it = std::remove_if(eleves.begin(), eleves.end()) [&](const &etudiant e)
+        auto it = std::remove_if(eleves.begin(), eleves.end(), [&](const etudiant &e) { return e.geteleve() == nom; });
+        if (it == eleves.end())
         {
-            return e.geteleve() == nom;
-        } if (it = eleves.end()){
-            std::cout<<"aucun eleve trouver avec ce nom";
-        }else {
-            eleves.erase(it , eleves.end())
+            std::cout << "aucun eleve trouver avec ce nom";
+        }
+        else
+        {
+            eleves.erase(it, eleves.end());
         }
     }
-    
 
-
-
+    void affichereleves()
+    {
+        for (etudiant &e : eleves)
+        {
+            std::cout << e.geteleve() << e.getnote() << "\n";
+        }
+    }
 };
+int main (){
+    etudiants groupe ;
+    groupe.ajouteretudiant(etudiant("rayene",15));
+    groupe.ajouteretudiant(etudiant("nassim",16));
+    groupe.affichereleves();
+    return 0 ;
+}
